@@ -13,7 +13,6 @@ class _LobbyGameScreenState extends State<LobbyGameScreen> {
   
   final TextEditingController _controllerScoreNumber = TextEditingController();
 
-//Version one
 
   @override
   Widget build(BuildContext context) {
@@ -40,41 +39,70 @@ class _LobbyGameScreenState extends State<LobbyGameScreen> {
               SizedBox(height: 70.0),
               Column(
                 children: [
-                  Container(
-                      margin: EdgeInsets.only(top: 35.0 , left: 15.0, right: 15.0),
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        boxShadow: [BoxShadow(
-                          color: Color(0xff303438),
-                          blurRadius: 5,
-                          offset: Offset(3, 10), // Shadow position
-                        ),],
-                        borderRadius: BorderRadius.all(Radius.circular(20)) ,
-                        color: Color(0xff83c5be),
+                  GestureDetector(
+                    onTap: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Number of points'),
+                        content: const Text('The number of points you want to change in the game'),
+                        actions: <Widget>[
+                          TextField(
+                            keyboardType: TextInputType.number,
+                            cursorColor: Colors.black,
+                            controller: _controllerScoreNumber,
+                            style: Theme.of(context).textTheme.headline5,
+                            decoration: InputDecoration(
+                                labelText: "number of Score",
+                                labelStyle: TextStyle(color:  Colors.black ,fontSize: 20.0)
+                            ),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: (){
+                                  Navigator.pop(context, 'Cancel');
+                                  print(_controllerScoreNumber);
+                                  if(_controllerScoreNumber.text != ""){
+                                    print(_controllerScoreNumber.text.runtimeType);
+                                    int _scoreNumber =  int.parse(_controllerScoreNumber.text);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                      return GameScreen(pointsRequired: _scoreNumber , gameMode: "unlimited",);
+                                    }));
+                                  }
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                      child:Center(child: TextField(
-                        keyboardType: TextInputType.number,
-                        cursorColor: Colors.black,
-                        controller: _controllerScoreNumber,
-                        style: Theme.of(context).textTheme.headline5,
-                        decoration: InputDecoration(
-                            labelText: "number of Score",
-                            labelStyle: TextStyle(color:  Colors.black)
+                    ),
+                    child: Container(
+                        margin: EdgeInsets.only(top: 35.0 , left: 15.0, right: 15.0),
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          boxShadow: [BoxShadow(
+                            color: Color(0xff303438),
+                            blurRadius: 5,
+                            offset: Offset(3, 10), // Shadow position
+                          ),],
+                          borderRadius: BorderRadius.all(Radius.circular(20)) ,
+                          color: Color(0xff483c5be),
                         ),
-                      )
-                      )
+                        child: Center(child: Text("unlimited Game" , style: TextStyle(fontSize: 35.0)),)
+                    ),
                   ),
                   GestureDetector(
                     onTap: (){
-                      print(_controllerScoreNumber);
-                      if(_controllerScoreNumber.text != ""){
-                        print(_controllerScoreNumber.text.runtimeType);
-                        int _scoreNumber =  int.parse(_controllerScoreNumber.text);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return GameScreen(pointsRequired: _scoreNumber);
-                        }));
-
-                      }
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return GameScreen(pointsRequired: 30 , gameMode: "classic",);
+                      }));
                     },
                     child: Container(
                         margin: EdgeInsets.only(top: 35.0 , left: 15.0, right: 15.0),
@@ -88,7 +116,7 @@ class _LobbyGameScreenState extends State<LobbyGameScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(20)) ,
                           color: Color(0xff483c5be),
                         ),
-                        child: Center(child: Text("Start Game" , style: TextStyle(fontSize: 35.0)),)
+                        child: Center(child: Text("classic Game" , style: TextStyle(fontSize: 35.0)),)
                     ),
                   )
                 ],
