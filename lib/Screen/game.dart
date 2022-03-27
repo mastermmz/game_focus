@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({Key? key , required this.pointsRequired}) : super(key: key);
+  const GameScreen({Key? key , required this.pointsRequired, required this.gameMode}) : super(key: key);
   final int pointsRequired;
+  final String gameMode;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -100,16 +101,35 @@ class _GameScreenState extends State<GameScreen> {
           )
       );
     }else{
+      return _endGamebuildBoody();
+    }
+  }
+
+
+  Widget _endGamebuildBoody(){
+    if(widget.gameMode == "classic"){
       return Container(
         child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("End Game" , style: TextStyle(fontSize: 40.0)),
+                Text("classic Mode End Game" , style: TextStyle(fontSize: 40.0)),
+                SizedBox(height: 20.0),
+                Text("$chekGameTime", style: TextStyle(fontSize: 36.0)),
+              ],)),
+      );
+    }else{
+      return Container(
+        child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("unlimited Mode End Game" , style: TextStyle(fontSize: 40.0)),
                 SizedBox(height: 20.0),
                 Text("$chekGameTime", style: TextStyle(fontSize: 36.0)),
               ],)),
       );
     }
   }
+
 }
