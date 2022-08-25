@@ -102,7 +102,7 @@ class _LobbyGameScreenState extends State<LobbyGameScreen> {
                   GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return const GameScreen(pointsRequired: 30 , gameMode: "classic",); 
+                        return const GameScreen(pointsRequired: 30 , gameMode: "classic",);
                       }));
                     },
                     child: Container(
