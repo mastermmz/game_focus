@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:game_focus/Screen/LobbyGame.dart';
+import 'package:game_focus/models/objectBoxModel.dart';
 
-import 'Screen/game.dart';
 
-void main() {
-  runApp(const MyApp());
+late ObjectBox objectBox;
+
+Future<void> main() async {
+  // This is required so ObjectBox can get the application directory
+  // to store the database in.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  objectBox = await ObjectBox.init();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,10 +23,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'game',
       theme: ThemeData(
       ),
-      home:  LobbyGameScreen(),
+      home:  const LobbyGameScreen(),
     );
   }
 }
